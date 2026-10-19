@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+**/.vs/
+**/node_modules/
+**/dist/
+**/.env
+**/.env.local
+**/appsettings.json
+**/appsettings.Development.json
+**/playwright-report/
+**/test-results/
+*.user
+*.pfx
+*.pem
+/TallerMecanico/
+**/.npm-cache/
