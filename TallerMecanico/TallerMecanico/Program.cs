@@ -27,6 +27,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 ValidateAudience = true,
                 ValidateIssuerSigningKey = true,
                 ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero,
                 ValidIssuer = jwtIssuer,
                 ValidAudience = jwtAudience ?? throw new InvalidOperationException("Jwt:Audience is missing."),
                 IssuerSigningKey = new SymmetricSecurityKey(
@@ -57,6 +58,9 @@ builder.Services.AddScoped<AuthService>();
 // --- 3. OWASP Mitigations: Rate Limiting & Versioning & CORS ---
 builder.Services.AddRateLimiter(options =>
 {
+    options.AddPolicy("login", context => RateLimitPartition.GetFixedWindowLimiter(
+        context.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+        _ => new FixedWindowRateLimiterOptions { PermitLimit = 5, QueueLimit = 0, Window = TimeSpan.FromMinutes(1), AutoReplenishment = true }));
     options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
         RateLimitPartition.GetFixedWindowLimiter(
             partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
@@ -74,7 +78,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000", "http://localhost:5173", "https://localhost:3000", "https://localhost:5173")
+        policy.WithOrigins(builder.Configuration.GetSection("Cors:Origins").Get<string[]>() ?? ["http://localhost:5173", "http://127.0.0.1:5173"])
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -105,6 +109,16 @@ var app = builder.Build();
 // --- OWASP Mitigations: Middlewares ---
 app.UseExceptionHandling(); // Manejo global de excepciones para no exponer stack traces
 app.UseRequestLogging();
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    context.Response.Headers["X-Frame-Options"] = "DENY";
+    context.Response.Headers["Referrer-Policy"] = "no-referrer";
+    if (!app.Environment.IsDevelopment() || !context.Request.Path.StartsWithSegments("/scalar"))
+        context.Response.Headers["Content-Security-Policy"] = "default-src 'none'; frame-ancestors 'none'";
+    context.Response.Headers["Cache-Control"] = "no-store";
+    await next();
+});
 
 if (!app.Environment.IsDevelopment())
 {
@@ -148,6 +162,8 @@ using (var scope = app.Services.CreateScope())
         if (context.Database.IsRelational())
         {
             context.Database.Migrate();
+            if (app.Environment.IsDevelopment())
+                await DevelopmentSeed.RunAsync(context, builder.Configuration, services.GetRequiredService<AuthService>());
         }
     }
     catch (Exception ex)

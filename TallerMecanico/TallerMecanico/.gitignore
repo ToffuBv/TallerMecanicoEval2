@@ -1,0 +1,12 @@
+﻿bin/
+obj/
+.vs/
+buildverify/
+TestResults/
+*.user
+appsettings.json
+appsettings.Development.json
+appsettings.Local.json
+.env
+*.pfx
+*.pem

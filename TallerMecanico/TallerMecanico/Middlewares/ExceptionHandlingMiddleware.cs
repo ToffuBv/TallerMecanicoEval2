@@ -37,7 +37,7 @@ namespace TallerMecanico.Middlewares
                 StatusCode = context.Response.StatusCode,
                 Message = "Ocurrió un error interno en el servidor.",
                 // No devolvemos el exception.StackTrace en producción por seguridad (OWASP)
-                Detailed = context.RequestServices.GetRequiredService<IWebHostEnvironment>().IsDevelopment() ? exception.Message : null
+                Detailed = (string?)null
             };
 
             var jsonResponse = JsonSerializer.Serialize(response);

@@ -12,5 +12,7 @@
 *.user
 *.pfx
 *.pem
-/TallerMecanico/
 **/.npm-cache/
+**/buildverify/
+**/TestResults/
+*.tsbuildinfo

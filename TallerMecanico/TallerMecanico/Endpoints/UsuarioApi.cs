@@ -41,9 +41,8 @@ namespace TallerMecanico.Endpoints
             user.MapPost("/login", async (LoginRequest login, [Microsoft.AspNetCore.Mvc.FromServices] IUsuarioRepository usuarioRepo,
                 IConfiguration config) =>
             {
-                var usuario = await usuarioRepo.GetUsuarioConRolByNombreAsync(login.NombreUsuario);
-
                 if (login.Validar() is { } errorDeValidacion) return errorDeValidacion;
+                var usuario = await usuarioRepo.GetUsuarioConRolByNombreAsync(login.NombreUsuario);
 
                 if (usuario is null)
                     return Results.Unauthorized();
@@ -76,7 +75,7 @@ namespace TallerMecanico.Endpoints
                 );
 
                 return Results.Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
-            }).AllowAnonymous();
+            }).AllowAnonymous().RequireRateLimiting("login");
         }
         public record LoginRequest(string NombreUsuario, string Password);
     }

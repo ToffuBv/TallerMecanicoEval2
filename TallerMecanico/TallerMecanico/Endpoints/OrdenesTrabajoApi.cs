@@ -24,21 +24,22 @@ namespace TallerMecanico.Endpoints
             // Requiere autenticación y rol Admin o Mecanico
             ordenesTrabajo.RequireAuthorization(new AuthorizeAttribute { Roles = "Admin, Mecanico" });
 
-            ordenesTrabajo.MapGet("/", async ([Microsoft.AspNetCore.Mvc.FromServices] IOrdenesTrabajoRepository repository) =>
+            ordenesTrabajo.MapGet("/", async ([Microsoft.AspNetCore.Mvc.FromServices] IOrdenesTrabajoRepository repository, TallerMecanicoDbContext db) =>
             {
                 var ordenes = await repository.GetOrdenesConDetallesAsync();
                 return Results.Ok(ordenes);
             });
 
-            ordenesTrabajo.MapGet("/{id:int}", async (int id, [Microsoft.AspNetCore.Mvc.FromServices] IOrdenesTrabajoRepository repository) =>
+            ordenesTrabajo.MapGet("/{id:int}", async (int id, [Microsoft.AspNetCore.Mvc.FromServices] IOrdenesTrabajoRepository repository, TallerMecanicoDbContext db) =>
             {
                 var orden = await repository.GetOrdenConDetallesByIdAsync(id);
                 return orden is not null ? Results.Ok(orden) : Results.NotFound();
             });
 
-            ordenesTrabajo.MapPost("/", async (OrdenTrabajoDTO dto, [Microsoft.AspNetCore.Mvc.FromServices] IOrdenesTrabajoRepository repository) =>
+            ordenesTrabajo.MapPost("/", async (OrdenTrabajoDTO dto, [Microsoft.AspNetCore.Mvc.FromServices] IOrdenesTrabajoRepository repository, TallerMecanicoDbContext db) =>
             {
                 if (dto.Validar() is { } errorDeValidacion) return errorDeValidacion;
+                if (await ValidarRelaciones(dto, db) is { } relacionesInvalidas) return relacionesInvalidas;
 
                 var orden = new OrdenesTrabajo
                 {
@@ -55,9 +56,10 @@ namespace TallerMecanico.Endpoints
                 return Results.Created($"/api/v1/ordenes-trabajo/{orden.OrdenId}", orden);
             });
 
-            ordenesTrabajo.MapPut("/{id:int}", async (int id, OrdenTrabajoDTO dto, [Microsoft.AspNetCore.Mvc.FromServices] IOrdenesTrabajoRepository repository) =>
+            ordenesTrabajo.MapPut("/{id:int}", async (int id, OrdenTrabajoDTO dto, [Microsoft.AspNetCore.Mvc.FromServices] IOrdenesTrabajoRepository repository, TallerMecanicoDbContext db) =>
             {
                 if (dto.Validar() is { } errorDeValidacion) return errorDeValidacion;
+                if (await ValidarRelaciones(dto, db) is { } relacionesInvalidas) return relacionesInvalidas;
 
                 var orden = await repository.GetByIdAsync(id);
                 if (orden is null) return Results.NotFound();
@@ -75,7 +77,7 @@ namespace TallerMecanico.Endpoints
             });
 
             // Solo Admin puede eliminar
-            ordenesTrabajo.MapDelete("/{id:int}", async (int id, [Microsoft.AspNetCore.Mvc.FromServices] IOrdenesTrabajoRepository repository) =>
+            ordenesTrabajo.MapDelete("/{id:int}", async (int id, [Microsoft.AspNetCore.Mvc.FromServices] IOrdenesTrabajoRepository repository, TallerMecanicoDbContext db) =>
             {
                 var orden = await repository.GetByIdAsync(id);
                 if (orden is null) return Results.NotFound();
@@ -84,6 +86,16 @@ namespace TallerMecanico.Endpoints
                 await repository.SaveChangesAsync();
                 return Results.NoContent();
             }).RequireAuthorization(new AuthorizeAttribute { Roles = "Admin" });
+        }
+        private static async Task<IResult?> ValidarRelaciones(OrdenTrabajoDTO dto, TallerMecanicoDbContext db)
+        {
+            var errors = new Dictionary<string, string[]>();
+            if (dto.FechaIngreso is null) errors["fechaIngreso"] = ["Selecciona una fecha."];
+            if (await db.Clientes.FindAsync(dto.ClienteId) is null) errors["clienteId"] = ["El cliente no existe."];
+            var vehiculo = await db.Vehiculos.FindAsync(dto.VehiculoId);
+            if (vehiculo is null || vehiculo.ClienteId != dto.ClienteId) errors["vehiculoId"] = ["El vehículo debe pertenecer al cliente seleccionado."];
+            if (await db.Mecanicos.FindAsync(dto.MecanicoId) is null) errors["mecanicoId"] = ["El mecánico no existe."];
+            return errors.Count > 0 ? Results.ValidationProblem(errors) : null;
         }
     }
 }
