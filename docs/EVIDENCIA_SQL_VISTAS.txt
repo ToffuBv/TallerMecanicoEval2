@@ -1,0 +1,17 @@
+﻿Changed database context to 'TallerMecanicoDB'.
+servidor|base_datos
+--------|----------
+MIGUELCFZ\SQLEXPRESS|TallerMecanicoDB
+servicio_id|nombre|costo
+-----------|------|-----
+4|UIQA1792548424269Servicio editado|1234.50
+repuesto_id|nombre|precio|stock
+-----------|------|------|-----
+4|UIQA1792548424269Repuesto editado|123.45|0
+rol_id|nombre|descripcion
+------|------|-----------
+6|UIQA1792548424269Rol editado|Rol sin usuarios de prueba
+orden_id|observaciones|estado|pago_id|monto_total|metodo_pago|estado_pago
+--------|-------------|------|-------|-----------|-----------|-----------
+3|UIQA1792547807003 Orden pago|Pendiente|NULL|NULL|NULL|NULL
+4|UIQA1792548424269 Orden pago|Pendiente|4|3456.78|UIQA1792548424269|Pendiente

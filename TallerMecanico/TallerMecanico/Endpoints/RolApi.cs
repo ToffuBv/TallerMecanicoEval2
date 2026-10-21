@@ -9,7 +9,7 @@ namespace TallerMecanico.Endpoints
     {
         public static void MapRolApi(this WebApplication app)
         {
-            var rol = app.MapVersionedV1Group("rol", "Rol");
+            var rol = app.MapVersionedV1Group("rol", "Rol", roles: "Admin");
 
             rol.MapGet("/", async([Microsoft.AspNetCore.Mvc.FromServices] IRolRepository repository) => await repository.GetAllAsync());
 

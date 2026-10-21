@@ -60,6 +60,113 @@ beforeEach(() => {
   vi.restoreAllMocks();
   setToken(null);
 });
+it("oculta usuarios y roles al mecánico", async () => {
+  mockApi("Mecanico");
+  mount();
+  const user = await login();
+  await user.click(
+    await screen.findByRole("link", { name: "Datos del taller" }),
+  );
+  expect(
+    screen.queryByRole("link", { name: "Usuarios", exact: true }),
+  ).not.toBeInTheDocument();
+  expect(
+    screen.queryByRole("link", { name: "Roles", exact: true }),
+  ).not.toBeInTheDocument();
+});
+it("muestra usuarios y roles al administrador", async () => {
+  mockApi();
+  mount();
+  const user = await login();
+  await user.click(
+    await screen.findByRole("link", { name: "Datos del taller" }),
+  );
+  expect(
+    screen.getByRole("link", { name: "Usuarios", exact: true }),
+  ).toBeInTheDocument();
+  expect(
+    screen.getByRole("link", { name: "Roles", exact: true }),
+  ).toBeInTheDocument();
+});
+it("permite cargar un cliente desde Datos del taller", async () => {
+  const fetch = mockApi();
+  mount();
+  const user = await login();
+  await user.click(
+    await screen.findByRole("link", { name: "Datos del taller" }),
+  );
+  await user.click(screen.getByRole("link", { name: "Clientes" }));
+  await user.type(await screen.findByLabelText("Nombre"), "Pedro");
+  await user.type(screen.getByLabelText("Apellido"), "Soto");
+  await user.type(
+    screen.getByLabelText("Correo electrónico"),
+    "pedro@example.com",
+  );
+  await user.type(screen.getByLabelText("Teléfono"), "912345678");
+  await user.click(screen.getByRole("button", { name: "Guardar registro" }));
+  await waitFor(() =>
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining("/clientes/"),
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({
+          nombre: "Pedro",
+          apellido: "Soto",
+          correo: "pedro@example.com",
+          telefono: "912345678",
+          direccion: "",
+        }),
+      }),
+    ),
+  );
+  expect(await screen.findByText("Registro creado.")).toBeInTheDocument();
+});
+it("indica que se debe crear una marca antes de un modelo", async () => {
+  mockApi();
+  mount();
+  const user = await login();
+  await user.click(
+    await screen.findByRole("link", { name: "Datos del taller" }),
+  );
+  await user.click(screen.getByRole("link", { name: "Modelos" }));
+  expect(await screen.findByText(/Primero registra/)).toBeInTheDocument();
+  expect(
+    screen.getByRole("button", { name: "Guardar registro" }),
+  ).toBeDisabled();
+});
+it("registra una cuenta y permite iniciar sesión con las mismas credenciales", async () => {
+  const fetch = mockApi("Mecanico");
+  mount("/registro");
+  const user = userEvent.setup();
+  await user.type(screen.getByLabelText("Usuario"), "ana");
+  await user.type(
+    screen.getByLabelText("Correo electrónico"),
+    "ana@example.com",
+  );
+  await user.type(
+    screen.getByLabelText("Contraseña (mínimo 6 caracteres)"),
+    "secreto",
+  );
+  await user.type(screen.getByLabelText("Confirmar contraseña"), "secreto");
+  await user.click(screen.getByRole("button", { name: "Crear cuenta" }));
+  expect(await screen.findByRole("status")).toHaveTextContent("Cuenta creada");
+  expect(fetch).toHaveBeenCalledWith(
+    expect.stringContaining("/usuarios/registro"),
+    expect.objectContaining({
+      method: "POST",
+      body: JSON.stringify({
+        nombre: "ana",
+        correo: "ana@example.com",
+        password: "secreto",
+      }),
+    }),
+  );
+  await user.click(screen.getByRole("link", { name: "Ir a iniciar sesión" }));
+  await login();
+  expect(
+    await screen.findByRole("heading", { name: "Órdenes de trabajo" }),
+  ).toBeInTheDocument();
+});
 describe("Autenticación y órdenes", () => {
   it("redirige una ruta privada al login", () => {
     mount("/ordenes");

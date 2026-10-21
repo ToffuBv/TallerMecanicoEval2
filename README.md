@@ -61,6 +61,14 @@ Abre `http://127.0.0.1:5173`. `VITE_API_URL` apunta a la API HTTPS; no contiene 
 
 ## Operaciones y roles
 
+Desde **Crear una cuenta** en el login puedes registrar un usuario con correo y contraseña de al menos seis caracteres. La API asigna el rol `Mecanico` automáticamente y lo crea si no existe. La cuenta no crea un registro en la tabla de mecánicos.
+
+Después de iniciar sesión, abre **Datos del taller** para consultar, crear, editar y eliminar clientes, marcas, modelos, vehículos, especialidades, mecánicos, servicios, repuestos, pagos y roles. La eliminación requiere confirmación; solo Admin puede eliminar clientes. Las demás acciones siguen los permisos actuales de la API. Las relaciones existentes pueden impedir eliminar un registro.
+
+**Usuarios y Roles son exclusivos de Admin**: se ocultan al Mecánico, sus URL están restringidas en el frontend y la API devuelve 403 a ese rol. En Usuarios, Admin puede listar cuentas sin hashes de contraseña, crear usuarios con rol Admin o Mecanico, editar datos, cambiar contraseña y eliminar cuentas. Dejar la contraseña vacía al editar conserva la actual. No se permite borrar la cuenta propia ni eliminar o degradar al último administrador. Los permisos del JWT vigente se actualizan al volver a iniciar sesión; los cambios no revocan tokens ya emitidos.
+
+Para una base vacía, carga primero clientes, marcas y especialidades; después modelos, vehículos y mecánicos. Los selectores muestran los registros relacionados disponibles. Finalmente puedes crear órdenes y registrar sus pagos seleccionando la orden correspondiente. La base admite un solo pago por orden. Crear roles no asigna esos roles a usuarios ni agrega permisos reconocidos por el código.
+
 | Operación | Admin | Mecanico |
 | --- | --- | --- |
 | Listar, filtrar y consultar órdenes | Sí | Sí |

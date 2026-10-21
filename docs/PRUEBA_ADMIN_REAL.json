@@ -1,0 +1,1047 @@
+{
+  "timestamp": "2026-10-20T22:48:59.252298",
+  "base": "https://localhost:7027/api/v1",
+  "complete": true,
+  "results": [
+    {
+      "method": "GET",
+      "path": "/rol/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/rol/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/rol/3",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/rol/3",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/rol/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/clientes/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/clientes/1",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/clientes/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/clientes/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/marca/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/marca/1",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/marca/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/marca/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/modelo/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/modelo/1",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/modelo/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/modelo/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/especialidad/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/especialidad/1",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/especialidad/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/especialidad/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/mecanicos/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/mecanicos/1",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/mecanicos/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/mecanicos/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/vehiculos/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/vehiculos/1",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/vehiculos/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/vehiculos/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/servicios/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/servicios/1",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/servicios/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/servicios/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/repuestos/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/repuestos/1",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/repuestos/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/repuestos/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/ordenes-trabajo/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/ordenes-trabajo/1",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/ordenes-trabajo/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/ordenes-trabajo/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/pago/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/pago/1",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/pago/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/pago/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/ordenes-trabajo/1",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "observation": "Estado de orden después de crear pago",
+      "value": "Completado"
+    },
+    {
+      "method": "POST",
+      "path": "/rol/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/rol/4",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/rol/4",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/rol/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/clientes/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/clientes/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/clientes/2",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/clientes/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/marca/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/marca/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/marca/2",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/marca/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/modelo/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/modelo/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/modelo/2",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/modelo/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/especialidad/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/especialidad/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/especialidad/2",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/especialidad/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/mecanicos/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/mecanicos/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/mecanicos/2",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/mecanicos/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/vehiculos/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/vehiculos/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/vehiculos/2",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/vehiculos/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/servicios/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/servicios/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/servicios/2",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/servicios/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/repuestos/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/repuestos/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/repuestos/2",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/repuestos/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/ordenes-trabajo/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/ordenes-trabajo/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/ordenes-trabajo/2",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/ordenes-trabajo/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/pago/",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/pago/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/pago/2",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/pago/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/pago/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/pago/2",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/pago/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/ordenes-trabajo/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/ordenes-trabajo/2",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/ordenes-trabajo/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/repuestos/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/repuestos/2",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/repuestos/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/servicios/2",
+      "status": 429,
+      "expected": 204,
+      "passed": false,
+      "errors": "Verificar respuesta del servidor"
+    },
+    {
+      "method": "GET",
+      "path": "/rol/",
+      "status": 429,
+      "observation": "Límite de peticiones; reintento tras pausa"
+    },
+    {
+      "method": "GET",
+      "path": "/rol/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/servicios/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/servicios/2",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/servicios/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/vehiculos/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/vehiculos/2",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/vehiculos/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/mecanicos/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/mecanicos/2",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/mecanicos/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/especialidad/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/especialidad/2",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/especialidad/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/modelo/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/modelo/2",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/modelo/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/marca/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/marca/2",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/marca/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/clientes/2",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/clientes/2",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/clientes/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/rol/4",
+      "status": 204,
+      "expected": 204,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/rol/4",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/rol/",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/usuarios/registro",
+      "status": 201,
+      "expected": 201,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/usuarios/login",
+      "status": 200,
+      "expected": 200,
+      "passed": true
+    }
+  ],
+  "created": [
+    {
+      "route": "rol",
+      "id": 3,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "clientes",
+      "id": 1,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "marca",
+      "id": 1,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "modelo",
+      "id": 1,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "especialidad",
+      "id": 1,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "mecanicos",
+      "id": 1,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "vehiculos",
+      "id": 1,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "servicios",
+      "id": 1,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "repuestos",
+      "id": 1,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "ordenes-trabajo",
+      "id": 1,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "pago",
+      "id": 1,
+      "tag": "QA261020224749V",
+      "deleted": false
+    },
+    {
+      "route": "rol",
+      "id": 4,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "clientes",
+      "id": 2,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "marca",
+      "id": 2,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "modelo",
+      "id": 2,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "especialidad",
+      "id": 2,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "mecanicos",
+      "id": 2,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "vehiculos",
+      "id": 2,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "servicios",
+      "id": 2,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "repuestos",
+      "id": 2,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "ordenes-trabajo",
+      "id": 2,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "pago",
+      "id": 2,
+      "tag": "QA261020224749D",
+      "deleted": true
+    },
+    {
+      "route": "usuarios",
+      "id": 4,
+      "tag": "QA261020224858Usuario",
+      "deleted": false
+    }
+  ]
+}

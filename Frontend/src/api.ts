@@ -60,7 +60,10 @@ export async function request(
     };
     throw new ApiError(
       response.status,
-      messages[response.status] || "No fue posible completar la operación.",
+      (response.status === 409 && typeof data?.message === "string"
+        ? data.message
+        : messages[response.status]) ||
+        "No fue posible completar la operación.",
       data?.errors || {},
     );
   }
@@ -76,6 +79,11 @@ const checked = async <T>(path: string, schema: z.ZodType<T>): Promise<T> => {
   return parsed.data;
 };
 export const api = {
+  register: (nombre: string, correo: string, password: string) =>
+    request("/usuarios/registro", {
+      method: "POST",
+      body: JSON.stringify({ nombre, correo, password }),
+    }),
   login: (nombreUsuario: string, password: string) =>
     request("/usuarios/login", {
       method: "POST",

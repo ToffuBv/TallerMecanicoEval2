@@ -99,6 +99,11 @@ public sealed class EspecialidadesIntegrationTests : IClassFixture<WebApplicatio
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", json.RootElement.GetProperty("token").GetString());
         }
         await SignIn("mecanico", "solo-pruebas-mecanico-2026");
+        Assert.Equal(HttpStatusCode.Forbidden, (await client.GetAsync("/api/v1/usuarios/")).StatusCode);
+        Assert.Equal(HttpStatusCode.Forbidden, (await client.GetAsync("/api/v1/rol/")).StatusCode);
+        Assert.Equal(HttpStatusCode.Forbidden, (await client.PostAsJsonAsync("/api/v1/usuarios/", new { nombre = "no-autorizado", correo = "no@example.com", rolId = 1, password = "secreto" })).StatusCode);
+        Assert.Equal(HttpStatusCode.Forbidden, (await client.PutAsJsonAsync("/api/v1/usuarios/987654", new { nombre = "no-autorizado", correo = "no@example.com", rolId = 1, password = "secreto" })).StatusCode);
+        Assert.Equal(HttpStatusCode.Forbidden, (await client.DeleteAsync("/api/v1/usuarios/987654")).StatusCode);
         Assert.Equal(HttpStatusCode.Forbidden, (await client.DeleteAsync("/api/v1/ordenes-trabajo/987654")).StatusCode);
         var cliente = await db.Clientes.FirstAsync();
         var vehiculo = await db.Vehiculos.FirstAsync();
@@ -113,6 +118,21 @@ public sealed class EspecialidadesIntegrationTests : IClassFixture<WebApplicatio
         var invalid = await client.PostAsJsonAsync("/api/v1/ordenes-trabajo/", new { fechaIngreso = "2026-10-19", estado = "Inválido", observaciones = "", clienteId = 0, vehiculoId = 0, mecanicoId = 0 });
         Assert.Equal(HttpStatusCode.BadRequest, invalid.StatusCode);
         await SignIn("admin", "solo-pruebas-admin-2026");
+        var mechanicRole = await db.Roles.SingleAsync(r => r.Nombre == "Mecanico");
+        var userCreated = await client.PostAsJsonAsync("/api/v1/usuarios/", new { nombre = "gestion-prueba", correo = "gestion@example.com", rolId = mechanicRole.RolId, password = "secreto-2026" });
+        Assert.Equal(HttpStatusCode.Created, userCreated.StatusCode);
+        using var userJson = JsonDocument.Parse(await userCreated.Content.ReadAsStringAsync());
+        var userId = userJson.RootElement.GetProperty("usuarioId").GetInt32();
+        var userList = await client.GetStringAsync("/api/v1/usuarios/");
+        Assert.Contains("gestion-prueba", userList);
+        Assert.DoesNotContain("password", userList, StringComparison.OrdinalIgnoreCase);
+        Assert.Equal(HttpStatusCode.NoContent, (await client.PutAsJsonAsync($"/api/v1/usuarios/{userId}", new { nombre = "gestion-editada", correo = "gestion@example.com", rolId = mechanicRole.RolId, password = (string?)null })).StatusCode);
+        Assert.Contains("gestion-editada", await client.GetStringAsync($"/api/v1/usuarios/{userId}"));
+        var admin = await db.Usuarios.SingleAsync(u => u.Nombre == "admin");
+        Assert.Equal(HttpStatusCode.Conflict, (await client.DeleteAsync($"/api/v1/usuarios/{admin.UsuarioId}")).StatusCode);
+        Assert.Equal(HttpStatusCode.Conflict, (await client.PutAsJsonAsync($"/api/v1/usuarios/{admin.UsuarioId}", new { nombre = "admin", correo = admin.Correo, rolId = mechanicRole.RolId, password = (string?)null })).StatusCode);
+        Assert.Equal(HttpStatusCode.NoContent, (await client.DeleteAsync($"/api/v1/usuarios/{userId}")).StatusCode);
+        Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync($"/api/v1/usuarios/{userId}")).StatusCode);
         Assert.Equal(HttpStatusCode.NoContent, (await client.DeleteAsync($"/api/v1/ordenes-trabajo/{id}")).StatusCode);
     }
 

@@ -17,6 +17,7 @@ import {
 } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api, ApiError } from "./api";
+import Catalogs from "./Catalogs";
 import { useAuth } from "./auth";
 import { inputSchema, type Order, type OrderInput } from "./contracts";
 
@@ -64,6 +65,7 @@ function Layout() {
         {session && (
           <nav aria-label="Principal">
             <Link to="/ordenes">Órdenes de trabajo</Link>
+            <Link to="/datos">Datos del taller</Link>
             <span className="identity">
               {session.name} · {session.role}
             </span>
@@ -149,12 +151,121 @@ export function Login() {
             {busy ? "Ingresando…" : "Entrar al taller →"}
           </button>
         </form>
+        <p>
+          <Link to="/registro">Crear una cuenta</Link>
+        </p>
         <p className="small muted">
-          Por seguridad, la sesión se cierra al recargar la página y después de
-          5 minutos.
+          La sesión se cierra al recargar la página o cuando vence el token.
+          Durante las pruebas locales, el token dura 60 minutos.
         </p>
       </section>
     </div>
+  );
+}
+function Register() {
+  const { session } = useAuth();
+  const [error, setError] = useState<unknown>();
+  const [busy, setBusy] = useState(false);
+  const [created, setCreated] = useState(false);
+  if (session) return <Navigate to="/ordenes" replace />;
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    setError(undefined);
+    if (data.get("password") !== data.get("confirm")) {
+      setError(new Error("Las contraseñas no coinciden."));
+      return;
+    }
+    setBusy(true);
+    try {
+      await api.register(
+        String(data.get("nombre")).trim(),
+        String(data.get("correo")).trim(),
+        String(data.get("password")),
+      );
+      setCreated(true);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <section className="panel login-panel">
+      <h1 tabIndex={-1}>Crear una cuenta</h1>
+      {created ? (
+        <div role="status">
+          <p>
+            Cuenta creada. Inicia sesión con el usuario y la contraseña que
+            elegiste.
+          </p>
+          <Link className="button" to="/login">
+            Ir a iniciar sesión
+          </Link>
+        </div>
+      ) : (
+        <>
+          <p className="muted">
+            Tu cuenta tendrá el rol Mecánico para consultar, crear y editar
+            órdenes.
+          </p>
+          <form onSubmit={submit}>
+            <label htmlFor="nombre">Usuario</label>
+            <input
+              id="nombre"
+              name="nombre"
+              autoComplete="username"
+              required
+              minLength={3}
+              maxLength={100}
+            />
+            <label htmlFor="correo">Correo electrónico</label>
+            <input
+              id="correo"
+              name="correo"
+              type="email"
+              autoComplete="email"
+              required
+            />
+            <label htmlFor="new-password">
+              Contraseña (mínimo 6 caracteres)
+            </label>
+            <input
+              id="new-password"
+              name="password"
+              type="password"
+              autoComplete="new-password"
+              required
+              minLength={6}
+              maxLength={200}
+            />
+            <label htmlFor="confirm">Confirmar contraseña</label>
+            <input
+              id="confirm"
+              name="confirm"
+              type="password"
+              autoComplete="new-password"
+              required
+              minLength={6}
+              maxLength={200}
+            />
+            <ErrorNotice error={error} />
+            {error instanceof ApiError &&
+              Object.entries(error.errors).map(([field, messages]) => (
+                <p className="field-error" key={field}>
+                  {messages.join(" ")}
+                </p>
+              ))}
+            <button type="submit" disabled={busy}>
+              {busy ? "Creando cuenta…" : "Crear cuenta"}
+            </button>
+          </form>
+          <p>
+            <Link to="/login">Volver a iniciar sesión</Link>
+          </p>
+        </>
+      )}
+    </section>
   );
 }
 function Heading({
@@ -730,6 +841,7 @@ export default function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Register />} />
         <Route
           path="/acceso-denegado"
           element={
@@ -743,6 +855,8 @@ export default function App() {
           }
         />
         <Route element={<ProtectedRoute />}>
+          <Route path="/datos" element={<Catalogs />} />
+          <Route path="/datos/:catalog" element={<Catalogs />} />
           <Route path="/ordenes" element={<Orders />} />
           <Route path="/ordenes/nueva" element={<OrderForm />} />
           <Route path="/ordenes/:id" element={<Detail />} />

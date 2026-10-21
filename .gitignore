@@ -16,3 +16,4 @@
 **/buildverify/
 **/TestResults/
 *.tsbuildinfo
+Frontend/.admin-test-token

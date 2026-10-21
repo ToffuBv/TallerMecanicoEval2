@@ -12,6 +12,8 @@ using TallerMecanico.Repositories;
 using TallerMecanico.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+if (builder.Environment.IsDevelopment())
+    builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Information);
 
 // --- 1. Seguridad: Autenticacion JWT ---
 var jwtKey = builder.Configuration["Jwt:Key"];
